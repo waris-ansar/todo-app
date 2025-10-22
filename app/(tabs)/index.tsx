@@ -1,32 +1,29 @@
+import { getHomeStyles } from "@/assets/styles/home-styles.style";
+import Header from "@/components/home/header";
+import Input from "@/components/home/input";
 import { useTheme } from "@/hooks/use-theme";
-import { Text, TouchableOpacity, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar, Text, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Todo() {
-  const { toggleTheme, isDarkMode } = useTheme();
+  const { colors, toggleTheme } = useTheme();
+
+  const homeStyles = getHomeStyles(colors);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+    <LinearGradient
+      colors={colors.gradients.background}
+      style={homeStyles.container}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-
-      <View style={{ padding: 20 }}>
-        <TouchableOpacity
-          style={{
-            marginTop: 20,
-            padding: 20,
-            backgroundColor: "#ccc",
-            borderRadius: 8,
-          }}
-          onPress={toggleTheme}
-        >
-          <Text>Change mod</Text>
+      <StatusBar barStyle={colors.statusBarStyle} />
+      <SafeAreaView style={homeStyles.safeAreaContainer}>
+        <Header />
+        <Input />
+        <TouchableOpacity onPress={toggleTheme}>
+          <Text>Toggle theme</Text>
         </TouchableOpacity>
-      </View>
-    </View>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
